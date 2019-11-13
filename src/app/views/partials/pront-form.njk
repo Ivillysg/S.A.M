@@ -1,0 +1,75 @@
+<div class="row">
+    <input type="hidden" name="id" value="{{regPacient.id}}" id="">
+    <div class="col-md-7">
+        <div class="form-group">
+            <label class="bmd-label-floating">Nome Completo:</label>
+            <input style="padding: 10px;"  name="name" type="text" value="{{ regPacient.name }}" class="form-control"readonly />
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label class="bmd-label-floating">Nº prontuario:</label>
+            <input style="padding: 10px;" name="numberProtocol" type="text" value="{{ regPacient.numberProtocol }}" class="form-control" readonly/>
+        </div>
+    </div>
+</div>
+<div class="row  mt-2"">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="bmd-label-floating">Endereço:</label>
+            <input style="padding: 10px;"  name="" type="text" value="{{ regPacient.address }}" class="form-control"readonly />
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label class="bmd-label-floating">Idade:</label>
+            <input style="padding: 10px;" name="" type="text" value="{{ regPacient.age }}" class="form-control" readonly/>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label class="bmd-label-floating">Telefone:</label>
+            <input style="padding: 10px;" name="" type="text" value="{{ regPacient.phone }}" class="form-control" readonly/>
+        </div>
+    </div>
+</div>
+<div class="row  mt-2"">
+    <div class="col-md-4 ">
+        <div class="form-group">
+            <label class="bmd-label-floating">Cidade:</label>
+            <input style="padding: 10px;"  name="name" type="text" value="{{ regPacient.city }}" class="form-control"readonly />
+        </div>
+    </div>
+    <div class="col-md-3 ">
+        <div class="form-group">
+            <label class="bmd-label-floating">Estado:</label>
+            <input style="padding: 10px;" name="numberProcotocol" type="text" value="{{ regPacient.state }}" class="form-control" readonly/>
+        </div>
+    </div>
+    <div class="col-md-3 ">
+        <div class="form-group">
+            <label class="bmd-label-floating">Convenio:</label>
+            <input style="padding: 10px;" name="numberProcotocol" type="text" value="{{ regPacient.conv }}" class="form-control" readonly/>
+        </div>
+    </div>
+</div>
+<div class="row mt-2">
+    <div class="col-md-10">
+        <div class="form-group">
+            <label  class="bmd-label-floating">Prescrições:</label>
+            <textarea style="padding: 10px;" class="form-control" name="description" rows="10">{{regPacient.description}}</textarea>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="modal-footer">
+        <div class="divider">
+            <button type="submit" class="btn btn-info">
+                Salvar
+            </button>
+            <a href="/pacients" class="btn btn-disable">
+                cancelar
+            </a>
+        </div>
+    </div>
+</div>

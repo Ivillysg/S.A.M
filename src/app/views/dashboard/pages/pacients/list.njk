@@ -1,0 +1,211 @@
+{%extends "layouts/dashboard.njk"%} {%block app%}
+<style>
+  .page-link.active {
+    background-color: #00bcd4;
+    color: #fff;
+  }
+
+  .results li {
+    list-style-type: none;
+  }
+
+  .btn2 {
+    padding: 10px 10px;
+
+  }
+</style>
+<div class="container-fluid">
+  <div style="margin-top: -45px" class="row justify-content-right">
+    <div class="col-md-12">
+      <form class="card">
+        <div class="card-body row no-gutters align-items-center">
+          <div class="col-auto">
+            <i class="material-icons">search </i>
+          </div>
+          <!--end of col-->
+          <div class="col-md-11 justify-content-center">
+            <input style="background-color: #fff;" class="search form-control form-control-lg form-control-borderless" type="text" placeholder="Procurar paciente" />
+          </div>
+          <!-- <input type="text" class="search" placeholder="search any country here" /> -->
+          <!--end of col-->
+          <!-- <div class="col-auto">
+                        <button class="btn btn-small btn-outline-success " type="submit">procurar</button>
+                    </div> -->
+          <!--end of col-->
+        </div>
+      </form>
+    </div>
+
+    {% include "partials/msg.njk" %}
+
+    <div class="col-md-12" style="margin-top: -45px">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Lista de Pacientes</h4>
+          <div class="table-responsive">
+            {% if count_pacients > 0 %}
+            <div class="results ">
+            </div>
+            <div id="listPacients">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th class="text-center"></th>
+                    <th>Nome:</th>
+                    <th>Idade:</th>
+                    <th>Sexo:</th>
+                    <th>Telefone:</th>
+                    <th>Convênio:</th>
+                    <th class="text-right"></th>
+                    <th class="text-right"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {%for pacient in pacients %}
+                  <tr>
+                    <td class="text-center"></td>
+                    <td>{{ pacient.name }}</td>
+                    <td>{{ pacient.age }}</td>
+                    <td>{{ pacient.sex }}</td>
+                    <td>{{ pacient.phone }}</td>
+                    <td>{{ pacient.conv }}</td>
+                    <td class="td-actions text-right">
+                      <a href="/pacient/prontuario/{{ pacient.numberProtocol }}" rel="tooltip" title="Prontuario"
+                        class="btn btn-info">
+                        <i class="material-icons">person</i>
+                      </a>
+                      <a class="btn btn-warning" href="/pacient/edit/{{ pacient.numberProtocol }}" rel="tooltip"
+                        title="Editar">
+                        <i class="material-icons">edit</i>
+                      </a>
+                      <button type="button" title="Deletar" rel="tooltip" class="btn btn-danger" data-toggle="modal"
+                        data-target="#modalPacient" data-id="{{pacient.id}}"><i
+                          class="material-icons">close</i></button>
+
+                    </td>
+                  </tr>
+                  {%endfor%}
+                </tbody>
+              </table>
+              <nav class="mt-5">
+                <ul class="pagination justify-content-end">
+                  {% if pages > 1 %} {% if current != 1 %}
+                  <li class="page-item">
+                    <a class="page-link" href="/pacients/{{ current - 1 }}">Anterior</a>
+                  </li>
+
+                  {%endif%} {%for i in range(current, pages) %}
+                  {%if i == current %}
+                  <li class="page-item ">
+                    <a class="page-link active" href="/pacients/{{ i }}">{{i
+                      }}</a>
+                  </li>
+                  <li class="page-item ">
+                    <a class="page-link" href="/pacients/{{ i+1 }}">{{i+1
+                      }}</a>
+                  </li>
+                  {%elif i == pages-1 %}
+                  <li class="page-item ">
+                    <a class="page-link" href="/pacients/{{ current+2 }}">{{ current+2 }}</a>
+                  </li>
+                  {%endif%}
+                  {%endfor%} {% if current != pages%}
+                  <li class="page-item">
+                    <a class="page-link" href="/pacients/{{ current + 1 }}">Proximo</a>
+                  </li>
+                  {%endif%} {%endif%}
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+        {%else %}
+        <p style="font-size: 20px" class="text-center">
+          Nenhum paciente cadastrado!
+        </p>
+        {%endif%}
+        <div class="modal-footer">
+          <div class="divider">
+            {# <a href="/pacient/register" class="btn btn-info">
+              <i class="material-icons pmd-sm">add</i> Cadastrar paciente
+            </a> #}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal -->
+  <div class="modal fade" id="modalPacient" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Atençãooo!!!</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="/delete" method="POST">
+            <input type="hidden" class="form-control" name="id" id="recipient-name">
+            <p>Tem certeza que deseja deletar?</p>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-danger">Deletar</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <script>
+    const pacients = [];
+
+    fetch('http://localhost:3000/search')
+      .then(response => response.json())
+      .then(json => pacients.push(...json));
+
+    function searchPacients(wordToSearch, pacients) {
+      return pacients.filter(place => {
+        const regex = new RegExp(wordToSearch, 'gi');
+        return place.name.match(regex)
+      })
+    }
+    function display() {
+      if (this.value.length) {
+        $('#listPacients').hide()
+        const searchResult = searchPacients(this.value, pacients);
+        const searched = searchResult.map(item => {
+          const regex = new RegExp(this.value, 'gi');
+          const name = item.name.replace(regex, `<b>${this.value}</b>`)
+          const numProtocol = item.numberProtocol
+          return `<hr><div class="row justify-content-center"> <div class="col-5 mt-3">${name} - ${item.phone} </div> <div class="col-2"> <a href="/pacient/prontuario/${item.numberProtocol}" rel="tooltip" title="Prontuario" class="btn btn2 btn-info">
+            <i class="material-icons">person</i>
+          </a>
+          <a class="btn btn2 btn-warning" href="/pacient/edit/${ item.numberProtocol}" rel="tooltip" title="Editar">
+            <i class="material-icons">edit</i>
+          </a>
+          <button type="button" title="Deletar" rel="tooltip" class="btn btn2 btn-danger" data-toggle="modal"
+            data-target="#modalPacient" data-id="${ item._id}"><i class="material-icons">close</i></button></div></div>`;
+        }).join('');
+
+        results.innerHTML = searched;
+      }else {
+        $('#listPacients').show()
+        results.innerHTML = "";
+
+      }
+    }
+
+    const search = document.querySelector('.search');
+    const results = document.querySelector('.results');
+    search.addEventListener('keyup', display);
+
+
+
+  </script>
+  {% endblock %}
+
+</div>
+</div>

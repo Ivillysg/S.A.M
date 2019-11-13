@@ -1,0 +1,115 @@
+<div class="row">
+    <input type="hidden" name="id" value="{{regPacient.id}}" id="">
+    <div class="col-md-10">
+        <div class="form-group">
+            <label class="bmd-label-floating">Nome Completo:</label>
+            <input  style="padding: 10px;" name="name" type="text" value="{{ regPacient.name }}" class="form-control" required/>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-10">
+        <div class="form-group">
+            <label class="bmd-label-floating">Endereço:</label>
+            <input  style="padding: 10px;"  name="address" value="{{ regPacient.address }}" type="text" class="form-control"required />
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-5">
+        <div class="form-group">
+            <label class="bmd-label-floating">Telefone:</label>
+            <input  style="padding: 10px;" name="phone" value="{{ regPacient.phone }}" type="text" class="form-control"required />
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="form-group">
+            <select  style="padding: 10px;" class="form-control" name="sex" id="" required>
+                {%if regPacient.sex === "Masculino" %}
+                <option value="{{ regPacient.sex }}">{{ regPacient.sex }}</option>
+                <option value="Feminino">Feminino</option>
+                {%elif regPacient.sex === "Feminino"%}
+                <option value="{{ regPacient.sex }}">{{ regPacient.sex }}</option>
+                <option value="Feminino">Masculino</option>
+                {%else%}
+                <option value="">Escolha o sexo</option>
+                <option value="Masculino">Masculino</option>
+                <option value="Feminino">Feminino</option>
+                {%endif%}
+            </select>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-5">
+        <div class="form-group">
+            <label class="bmd-label">Cidade:</label>
+            <select  style="padding: 10px;" class="form-control disabled" name="city" id="cidades" required>
+                <option value="{{regPacient.city}}">cidades</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="form-group">
+            <!-- Estado -->
+            <label class="bmd-label">Estado:</label>
+            <select data-live-search="true" style="padding: 10px;" class="form-control" name="state" id="estados" required>
+                <option selected="{{regPacient.state}}">{{regPacient.state}}</option>
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-5">
+        <div class="form-group">
+            <label class="my-auto">Convênio:</label>
+        
+            <select style="padding: 10px;" class="form-control" name="conv" id="convenio" required>
+                {%if regPacient.conv %}    
+                    <option value="{{regPacient.conv}}">{{regPacient.conv}}</option>
+                    <option value="Unimed">Unimed</option>
+                    <option value="Particular">Particular</option>
+                    <option value="Amil">Amil</option>
+                    <option value="Geap">Geap</option>
+                    <option value="Smile">Smile</option>
+                    <option value="Coringa">Coringa</option>
+                    <option value="Sul America">Sul America</option>
+                    <option value="Caixa Saúde">Caixa Saúde</option>
+                    <option value="Odontomed">Odontomed</option>
+                    <option value="Cortesia">Cortesia</option>
+                    {%else%}
+                    <option value="Nenhum convênio">Escolha um convênio</option>
+                    <option value="Unimed">Unimed</option>
+                    <option value="Particular">Particular</option>
+                    <option value="Amil">Amil</option>
+                    <option value="Geap">Geap</option>
+                    <option value="Smile">Smile</option>
+                    <option value="Coringa">Coringa</option>
+                    <option value="Sul America">Sul America</option>
+                    <option value="Caixa Saúde">Caixa Saúde</option>
+                    <option value="Odontomed">Odontomed</option>
+                    <option value="Cortesia">Cortesia</option>
+                    {%endif%}
+            </select>
+        </div>
+    </div>
+    <div class="col-md-5 mt-1"><br>
+        <div class="form-group">
+            <label class="my-auto">Nascimento:</label>
+            <input style="padding: 10px;" name="age" type="date" value="{{regPacient.birthday}}" class="form-control" required/>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="modal-footer">
+        <div class="divider">
+            <button type="submit" class="btn btn-info">
+                Salvar
+            </button>
+            <a href="/pacients" class="btn btn-disable">
+                cancelar
+            </a>
+        </div>
+    </div>
+</div>

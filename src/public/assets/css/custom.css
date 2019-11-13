@@ -1,0 +1,12 @@
+#toast {
+  left: 50%;
+  position: fixed;
+  width: 350px;
+  transform: translate(-30%, 15px);
+  z-index: 9999;
+  -webkit-box-shadow: -2px 7px 51px -10px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -2px 7px 51px -10px rgba(0, 0, 0, 0.75);
+  box-shadow: -2px 7px 51px -10px rgba(0, 0, 0, 0.75);
+  font-size: 16px;
+}
+

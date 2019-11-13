@@ -1,0 +1,105 @@
+<input type="hidden" name="pacient" id="data-id"  />
+<input type="hidden" name="url" id="data-url" />
+<input type="hidden" name="dateformat" id="data-date" />
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="form-group">
+            <label class="bmd-label-floating">Data da consulta:</label>
+            <input style="padding: 10px;" name="date" id="date" type="text" value="" class="form-control flatpickr" required />
+        </div>
+    </div>
+    <div class="col-md-7">
+        <div class="form-group">
+            <label class="bmd-label-floating ">Nome Completo:</label>
+            <input id="function-data" style="padding: 10px;" name="title" type="text" value="{{ regPacient.name }}"
+                class="form-control" required disabled/>
+        </div>
+    </div>
+</div>
+<div class="row mt-2">
+    <div class="col-md-7">
+        <div class="form-group">
+            <label class="bmd-label-floating">Endereço:</label>
+            <input style="padding: 10px;" idname="address" type="text" id="data-address" class="form-control" required readonly/>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="form-group">
+            <label class="bmd-label-floating">Nº do prontuario:</label>
+            <input id="data-numProtocol" style="padding: 10px;" name="number" type="text" value=""
+                class="form-control" required readonly/>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="modal-footer">
+        <div class="divider">
+            <button type="submit" class="btn btn-info">
+                Salvar
+            </button>
+            <a href="/pacients" class="btn btn-disable">
+                cancelar
+            </a>
+        </div>
+    </div>
+</div>
+<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/moment.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var campo_data = document.getElementById("date");
+        var campo_nome = document.getElementById("function-data");
+        campo_data.addEventListener("keyup", function () {
+            if (campo_data.value.trim().length > 0) {
+                campo_nome.disabled = false;
+            }
+        });
+        var options = {
+            url: "/search",
+
+            getValue: "name",
+            template: {
+                type: "description",
+                fields: {
+                    description: "phone"
+                }
+            },
+            list: {
+                match: {
+                    enabled: true
+                },
+                onSelectItemEvent: function () {
+                    var idPacient = $("#function-data").getSelectedItemData()._id;
+                    var number = $("#function-data").getSelectedItemData().numberProtocol;
+                    var address = $("#function-data").getSelectedItemData().address;
+                    var url = window.location.host;
+                    var datelocal = document.getElementById("date").value;
+                    var date_format = moment
+                        .parseZone(datelocal)
+                        .local()
+                        .format("HH:mm - DD/MM/Y");
+                    $("#data-id")
+                        .val(idPacient)
+                        .trigger("change");
+                    $("#data-numProtocol")
+                        .val(number)
+                        .trigger("change");
+                    $("#data-address")
+                        .val(address)
+                        .trigger("change");
+                    $("#data-date")
+                        .val(date_format)
+                        .trigger("change");
+                    $("#data-url")
+                        .val(`http://${url}/agenda/prontuario/${number}`)
+                        .trigger("change");
+                }
+            }
+        };
+
+        $("#function-data").easyAutocomplete(options);
+    });
+</script>

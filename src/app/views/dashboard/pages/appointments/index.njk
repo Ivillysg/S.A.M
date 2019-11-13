@@ -1,0 +1,76 @@
+{% extends "layouts/dashboard.njk"%} {%block app%}
+<div class="container-fluid">
+  <div class="row" style="margin-top: -50px;">
+    <div class="col-md-12">
+      <div class="card ">
+        <div class="card-body">
+          <h4 class="card-title">Agenda de consultas</h4>
+          <p class="card-category">Listando todas as consultas</p>
+        </div>
+        <div style="margin-top:-40px;" class="card-body">
+          <table class="table">
+            <thead>
+              {%if appoint | length > 0%}
+              <tr>
+                <th class="text-center"></th>
+                <th>Data da consulta</th>
+                <th>Paciente</th>
+                <th>Convênio</th>
+                <th class="text-left"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {%for i in range(appoint | length)%}
+              <tr>
+                <td class="text-center"></td>
+                <td id="date">{{ appoint[i].dateformat }}</td>
+                <td>{{ appoint[i].pacient.name }}</td>
+                <td>{{ appoint[i].pacient.conv }}</td>
+                <td class="td-actions text-left">
+                  <button type="button" title="Deletar" rel="tooltip" class="btn btn-danger" data-toggle="modal"
+                    data-target="#modalConsult" data-id="{{ appoint[i].id }}">
+                    <i class="material-icons">close</i>
+                  </button>
+                </td>
+              </tr>
+              {%endfor%}
+            </tbody>
+            {%else%}
+            <p style="font-size: 20px" class="text-center">
+              Nenhuma consulta marcada!
+            </p>
+          </table>
+          {%endif%}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modalConsult" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Atençãooo!!!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/agenda/delete" method="POST">
+          <input type="hidden" name="id_pacient" id="id_pacient">
+          <p>Tem certeza que deseja deletar?</p>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-danger">Deletar</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+              Fechar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{%endblock%}

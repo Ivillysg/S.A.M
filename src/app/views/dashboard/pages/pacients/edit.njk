@@ -1,0 +1,23 @@
+{%extends "layouts/dashboard.njk"%} {%block app%}
+<div class="container-fluid mx-auto">
+  {% include "partials/msg.njk" %}
+  <div class="row" style="margin-top: -80px;">
+    <div class="col-md-10 ">
+      <div class="card">
+        <div class="card-header card-header-primary">
+          <h4 class="card-title">Editar cadastro do Paciente</h4>
+          <p class="card-category">Complete todos os campos</p>
+        </div>
+        <div class="card-body mt-3">
+          <form action="/pacient/edit" method="POST">
+            {% include "partials/pacient-form.njk"%}
+        </div>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{%include "partials/scriptForm.njk"%}
+
+{%endblock%}

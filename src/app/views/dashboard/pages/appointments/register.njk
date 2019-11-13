@@ -1,0 +1,32 @@
+{%extends "layouts/dashboard.njk"%} {%block app%}
+<div class="container-fluid mx-5">
+    {% include "partials/msg.njk" %}
+    <div class="row">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="card-header card-header-primary">
+                    <h4 class="card-title">Agendar Consulta</h4>
+                    <p class="card-category">Complete todos os campos</p>
+                </div>
+                <div class="card-body mt-3">
+                    
+                    <form action="/agenda/register" method="POST">
+                        {% include "partials/agenda-form.njk"%}
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    flatpickr('.flatpickr',{
+        minDate: "2019",
+        enableTime: true,
+        dateFormat: 'Z',
+        "locale": "pt" 
+
+
+    })
+</script>
+{%include "partials/scriptForm.njk"%}
+{%endblock%}

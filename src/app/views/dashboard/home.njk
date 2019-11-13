@@ -1,0 +1,51 @@
+{% extends "layouts/dashboard.njk"%} {%block app%}
+
+<div class="container-fluid">
+  {% include "partials/msg.njk" %}
+
+    <div class="row" style="margin-top: -80px;">
+        <div class="col-md-3 col-sm-5">
+            <div class="card card-stats">
+                <div class="card-header card-header-success card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">group</i>
+                    </div>
+                    <p style="font-size: 15px;" class="card-category">
+                        Total de Pacientes
+                    </p>
+                    <h3 class="card-title">{{ count_pacients }}</h3>
+                </div>
+                <div class="card-footer"></div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-5">
+                <div class="card card-stats">
+                    <div class="card-header card-header-success card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">calendar_today</i>
+                        </div>
+                        <p style="font-size: 15px;" class="card-category">
+                            Consultas marcadas
+                        </p>
+                        <h3 class="card-title">{{ count_appoint }}</h3>
+                    </div>
+                    <div class="card-footer"></div>
+                </div>
+            </div>
+        
+</div>
+        <div class="col-md-12 col-sm-12" style="margin-top: -48px;">
+            <div class="card ">
+                <div class="card-body">
+                    <h4 class="card-title">Consultas</h4>
+                    <p class="card-category">Listando todas as consultas da semana</p>
+                </div>
+                <div style="margin-top:-70px;" class="card-body">
+                    {%include "partials/agenda.njk"%}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{%endblock%}
