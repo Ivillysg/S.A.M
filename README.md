@@ -1,5 +1,5 @@
 # Sistema de Agendamento Medico - S.A.M
-## Versão do sistema: 1.0.0
+**Versão do sistema: 1.0.0**
 ## Requisitos
 * **NodeJS**: >= 10
 
